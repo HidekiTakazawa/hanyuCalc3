@@ -1,7 +1,7 @@
 const display = document.getElementById('display');
 const outputDiv = document.getElementById('output');
 let expression = '';
-
+var { pinyin } = pinyinPro;
 const numberToChinese = {
     '0': '零',
     '1': '一',
@@ -126,7 +126,9 @@ function speak(text) {
 function speakExpression() {
     const output = convertExpressionToChinese(expression);
     speak(output);
-    outputDiv.textContent = output;
+    let wPinyin = pinyin(output);
+    console.log(wPinyin);
+    outputDiv.innerHTML = output + '<br>' + wPinyin;
 
     outputDiv.addEventListener('click', () => {
         speechSynthesis.cancel(); // 既存の音声出力をキャンセル
@@ -134,22 +136,5 @@ function speakExpression() {
         utterance.lang = 'zh-CN';
         speechSynthesis.speak(utterance);
     });
-    //   let chineseExpression = '';
-    //   for (let char of expression) {
-    //       if (numberToChinese[char]) {
-    //           chineseExpression += numberToChinese[char];
-    //       } else if (operatorToChinese[char]) {
-    //           chineseExpression += operatorToChinese[char];
-    //       }
-    //   }
-
-    //   // 計算結果を追加
-    //   try {
-    //       const result = eval(expression);
-    //       chineseExpression += operatorToChinese['='] + numberToChinese[result.toString()];
-    //   } catch (error) {
-    //       chineseExpression += '错误';
-    //   }
-
-    //   speak(chineseExpression);
+    
 }
