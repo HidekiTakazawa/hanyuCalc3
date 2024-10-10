@@ -125,7 +125,7 @@ function speak(text) {
 
 function speakExpression() {
     const output = convertExpressionToChinese(expression);
-    
+    speak(output);
     outputDiv.textContent = output;
 
     outputDiv.addEventListener('click', () => {
